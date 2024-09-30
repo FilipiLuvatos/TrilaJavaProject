@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 public class Conta {
 
 
-    @PostMapping("/cadastrar/{n_conta}")
-    public void cadastrarConta(@PathVariable ("n_conta") int N_Conta) {
+    @PostMapping
+    public void cadastrarConta(@RequestBody String N_Conta) {
 
         System.out.println("Teste_Conta:" + N_Conta);
     }
