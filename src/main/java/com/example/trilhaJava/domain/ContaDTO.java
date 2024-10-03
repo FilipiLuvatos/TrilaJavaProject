@@ -9,8 +9,7 @@ import java.time.LocalDate;
 @Data
 public class ContaDTO {
 
-    private int nConta;
-    private int docConta;
-    private int saldo;
+    private int numConta;
+    private float saldo;
     private StatusConta status;
 }
