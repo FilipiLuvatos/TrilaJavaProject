@@ -11,9 +11,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Date;
 
-@Table(name = "PessoaFisica")
-@Entity(name = "pessoa")
+@Table(name = "pessoafisica")
+@Entity(name = "pessoaf")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,11 +24,22 @@ public class PessoaF {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "sobre_Nome")
     private String sobreNome;
+
+    @Column(name = "doc")
     private int doc;
-    private LocalDate dNascimento;
-    private LocalDate cliDesde;
+
+    @Column(name = "d_nascimento")
+    private Date dNascimento;
+
+    @Column(name = "cli_desde")
+    private Date cliDesde;
+
     @Enumerated(EnumType.STRING)
     private TipoPessoa pessoa;
     @Embedded
@@ -63,5 +75,7 @@ public class PessoaF {
 
         this.nConta = pessoaF.getNConta();
     }
+
+
 
 }
