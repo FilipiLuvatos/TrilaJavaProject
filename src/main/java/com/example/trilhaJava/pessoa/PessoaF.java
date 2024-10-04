@@ -53,7 +53,7 @@ public class PessoaF {
         this.nome = pessoaF.getNome();
         this.sobreNome = pessoaF.getSobreNome();
         this.doc = pessoaF.getDoc();
-        this.dNascimento = pessoaF.getDNascimento();
+        this.dNascimento = pessoaF.getDNascimento();  //
         this.cliDesde = pessoaF.getCliDesde();
         String tipoPessoa = String.valueOf(pessoaF.getPessoa());
         if (tipoPessoa != null) {
