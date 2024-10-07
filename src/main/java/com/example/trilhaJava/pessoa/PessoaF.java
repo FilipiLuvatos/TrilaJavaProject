@@ -1,5 +1,6 @@
 package com.example.trilhaJava.pessoa;
 
+import com.example.trilhaJava.domain.AtualizaPessoaDTO;
 import com.example.trilhaJava.domain.EnderecoDTO;
 import com.example.trilhaJava.domain.PessoaFDTO;
 import com.example.trilhaJava.enumeration.StatusConta;
@@ -32,7 +33,7 @@ public class PessoaF {
     private String sobreNome;
 
     @Column(name = "doc")
-    private int doc;
+    private long doc;
 
     @Column(name = "d_nascimento")
     private Date dNascimento;
@@ -77,5 +78,7 @@ public class PessoaF {
     }
 
 
-
+    public void atualizarInfos(AtualizaPessoaDTO dadosAtua) {
+        this.doc = dadosAtua.getDoc();
+    }
 }

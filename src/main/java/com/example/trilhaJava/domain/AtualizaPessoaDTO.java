@@ -5,36 +5,34 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.util.Date;
 
-
-@Getter
 @Data
-public class PessoaFDTO {
+@Getter
+public class AtualizaPessoaDTO {
 
     private Long id;
-  
-    @NotBlank
-    private String nome;
-  
-    @NotBlank
-    private String sobreNome;
-  
 
-    private Long doc;
-  
-    @NotBlank
+    
+    private String nome;
+
+    
+    private String sobreNome;
+
+
+    private long doc;
+
+    
     private Date dNascimento;
-  
-    @NotBlank
+
+    
     private Date cliDesde;
-  
-    @NotBlank
+
+    
     private TipoPessoa pessoa;
     private EnderecoDTO endereco;
-  
-    @NotBlank
+
+    
     private int nConta;
     //private UserDTO usuario;
 
@@ -59,7 +57,7 @@ public class PessoaFDTO {
         this.sobreNome = sobreNome;
     }
 
-    public void setDoc(Long doc) {
+    public void setDoc(int doc) {
         this.doc = doc;
     }
 

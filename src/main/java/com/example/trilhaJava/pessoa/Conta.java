@@ -18,7 +18,7 @@ public class Conta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(name = "num_Conta")
     private int numConta;
     private float saldo;

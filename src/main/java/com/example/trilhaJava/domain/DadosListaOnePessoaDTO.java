@@ -11,6 +11,7 @@ import java.util.Date;
 @Data
 public class DadosListaOnePessoaDTO {
 
+    private Long id;
     @NotBlank
     private String nome;
 
@@ -24,6 +25,7 @@ public class DadosListaOnePessoaDTO {
     private int nConta;
 
     public DadosListaOnePessoaDTO(PessoaF dadosListaOnePessoaDTO) {
+        this.id = dadosListaOnePessoaDTO.getId();
         this.nome = dadosListaOnePessoaDTO.getNome();
         this.sobreNome = dadosListaOnePessoaDTO.getSobreNome();
         this.pessoa = dadosListaOnePessoaDTO.getPessoa();
@@ -44,5 +46,9 @@ public class DadosListaOnePessoaDTO {
 
     public void setnConta(int nConta) {
         this.nConta = nConta;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
