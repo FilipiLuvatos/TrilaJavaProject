@@ -80,5 +80,6 @@ public class PessoaF {
 
     public void atualizarInfos(AtualizaPessoaDTO dadosAtua) {
         this.doc = dadosAtua.getDoc();
+        this.nome = dadosAtua.getNome();
     }
 }

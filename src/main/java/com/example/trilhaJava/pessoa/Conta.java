@@ -1,5 +1,6 @@
 package com.example.trilhaJava.pessoa;
 
+import com.example.trilhaJava.domain.AtualizaContaDTO;
 import com.example.trilhaJava.domain.ContaDTO;
 import com.example.trilhaJava.enumeration.StatusConta;
 import jakarta.persistence.*;
@@ -45,5 +46,12 @@ public class Conta {
             System.err.println("Status é null.");
 
         }
+
+
+    }
+    public void atualizarInfosConta(AtualizaContaDTO dadosContaAtua) {
+        this.saldo = dadosContaAtua.getSaldo();
+
+        this.status = dadosContaAtua.getStatus();
     }
 }

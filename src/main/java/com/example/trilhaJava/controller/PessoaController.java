@@ -6,6 +6,7 @@ import com.example.trilhaJava.domain.PessoaFDTO;
 import com.example.trilhaJava.pessoa.PessoaF;
 import com.example.trilhaJava.repository.PessoaFRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +24,12 @@ public class PessoaController {
     public void cadastrarPessoa(@RequestBody PessoaFDTO pessoaF) {
         pessoaRepository.save(new PessoaF(pessoaF));
 
-        System.out.println("TestePessoa:" + pessoaF);
     }
 
     @GetMapping("/all")
-    public List<PessoaF>listaPessoaAll(){
-        return pessoaRepository.findAll();
+    public ResponseEntity<List<PessoaF>>listaPessoaAll(){
+        var listaPessoa = pessoaRepository.findAll();
+        return ResponseEntity.ok(listaPessoa);//200
     }
 
 
@@ -39,18 +40,19 @@ public class PessoaController {
 
     @PutMapping
     @Transactional
-    public void atualizaDadosPessoa(@RequestBody AtualizaPessoaDTO atualizaDados){
+    public ResponseEntity atualizaDadosPessoa(@RequestBody AtualizaPessoaDTO atualizaDados){
         var pessoa = pessoaRepository.getReferenceById(atualizaDados.getId());
         pessoa.atualizarInfos(atualizaDados);
 
+        return  ResponseEntity.ok(pessoa);//200
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluirPessoa(@PathVariable Long id){
+    public ResponseEntity excluirPessoa(@PathVariable Long id){
 
         pessoaRepository.deleteAllById(Collections.singleton(id));
-
+        return ResponseEntity.noContent().build(); // Retorna 204, especifico para excluão
     }
 
 }
