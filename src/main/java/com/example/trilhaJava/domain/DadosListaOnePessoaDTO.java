@@ -1,12 +1,11 @@
 package com.example.trilhaJava.domain;
 
 import com.example.trilhaJava.enumeration.TipoPessoa;
-import com.example.trilhaJava.pessoa.PessoaF;
+import com.example.trilhaJava.model.pessoa.PessoaF;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.Getter;
 
-import java.util.Date;
 @Getter
 @Data
 public class DadosListaOnePessoaDTO {

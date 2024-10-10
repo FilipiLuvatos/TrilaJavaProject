@@ -1,10 +1,8 @@
 package com.example.trilhaJava.controller;
 
 import com.example.trilhaJava.domain.AtualizaContaDTO;
-import com.example.trilhaJava.domain.AtualizaPessoaDTO;
 import com.example.trilhaJava.domain.ContaDTO;
-import com.example.trilhaJava.pessoa.Conta;
-import com.example.trilhaJava.pessoa.PessoaF;
+import com.example.trilhaJava.model.pessoa.Conta;
 import com.example.trilhaJava.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +22,7 @@ public class ContaController {
     @PostMapping
     @Transactional
     public void cadastrarConta(@RequestBody ContaDTO N_Conta) {
-        repositoryConta.save(new com.example.trilhaJava.pessoa.Conta(N_Conta));
-
+        repositoryConta.save(new Conta(N_Conta));
         System.out.println("Teste_Conta:" + N_Conta);
     }
 
@@ -40,7 +37,6 @@ public class ContaController {
     public ResponseEntity atualizaDadosPessoa(@RequestBody AtualizaContaDTO atualizaDados){
         var conta = repositoryConta.getReferenceById(atualizaDados.getId());
         conta.atualizarInfosConta(atualizaDados);
-
         return  ResponseEntity.ok(atualizaDados);
 
     }

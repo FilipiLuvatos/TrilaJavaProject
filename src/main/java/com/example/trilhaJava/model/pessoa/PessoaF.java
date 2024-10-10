@@ -1,4 +1,4 @@
-package com.example.trilhaJava.pessoa;
+package com.example.trilhaJava.model.pessoa;
 
 import com.example.trilhaJava.domain.AtualizaPessoaDTO;
 import com.example.trilhaJava.domain.EnderecoDTO;

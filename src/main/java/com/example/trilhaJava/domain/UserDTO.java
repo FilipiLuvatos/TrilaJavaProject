@@ -7,7 +7,7 @@ import lombok.Getter;
 @Data
 public class UserDTO {
 
-    private int user;
-    private String email;
+    private Long id;
+    private String login;
     private String pass;
 }
