@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,8 +22,10 @@ public class PessoaController {
 
     @PostMapping
     @Transactional
-    public void cadastrarPessoa(@RequestBody PessoaFDTO pessoaF) {
+    public ResponseEntity cadastrarPessoa(@RequestBody PessoaFDTO pessoaF, UriComponentsBuilder uriB) {
         pessoaRepository.save(new PessoaF(pessoaF));
+        var uri = uriB.path("/pessoa/{id}").buildAndExpand(pessoaF.getId()).toUri();
+        return ResponseEntity.created(uri).body(pessoaF);
 
     }
 
@@ -53,6 +56,13 @@ public class PessoaController {
 
         pessoaRepository.deleteAllById(Collections.singleton(id));
         return ResponseEntity.noContent().build(); // Retorna 204, especifico para excluão
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosListaOnePessoaDTO>listaPessoaOne(@PathVariable Long id){
+
+        var pessoa = pessoaRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosListaOnePessoaDTO(pessoa));
     }
 
 }
