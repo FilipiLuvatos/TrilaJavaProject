@@ -1,6 +1,7 @@
 package com.example.trilhaJava.domain;
 
 import com.example.trilhaJava.enumeration.TipoPessoa;
+import com.example.trilhaJava.pessoa.PessoaF;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.Getter;
