@@ -1,4 +1,4 @@
-package com.example.trilhaJava.exception;
+package com.example.trilhaJava.service;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

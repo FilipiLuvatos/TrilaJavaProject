@@ -3,6 +3,7 @@ package com.example.trilhaJava.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.trilhaJava.model.pessoa.Usuario;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,22 @@ public class TokenService {
         }
     }
 
+    public String getSubject(String tokenJWT){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    // specify any specific claim validations
+                    .withIssuer("auth0")
+                    // reusable verifier instance
+                    .build()
+                    .verify(tokenJWT)
+                    .getSubject(); // verifica se o token está valido
+
+        } catch (JWTVerificationException exception){
+            throw new RuntimeException("[TOKEN JWT INVÁLIDO OU EXPIRADO]");
+            // Invalid signature/claims
+        }
+    }
     public Instant dataExpiracao(){
         return LocalDateTime.now().plusHours(24).toInstant(ZoneOffset.of("-03:00"));
     }
