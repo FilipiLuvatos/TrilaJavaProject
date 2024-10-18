@@ -1,10 +1,14 @@
 package com.example.trilhaJava.service;
 
+import com.example.trilhaJava.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,13 +19,21 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private UsuarioRepository repository;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
         var tokenJWT = recuperaToken(request);
 
-        var subject = tokenService.getSubject(tokenJWT);
-        System.out.println(subject);
+        if(tokenJWT  != null){
+            var subject = tokenService.getSubject(tokenJWT);
+            var usuario = repository.findByLogin(subject);
+            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        }
 
         filterChain.doFilter(request, response); // Irá chamar os proximos filtros
     }
@@ -29,10 +41,11 @@ public class SecurityFilter extends OncePerRequestFilter {
     private String recuperaToken(HttpServletRequest request) {
         var autorizaHeader = request.getHeader("Authorization");
 
-        if ( autorizaHeader == null){
-            throw new RuntimeException("[Token not FOUND]");
+        if ( autorizaHeader != null){
+            return autorizaHeader.replace("Bearer ","");
         }
-        return autorizaHeader.replace("Bearer ","");
+
+        return null;
 
     }
 
