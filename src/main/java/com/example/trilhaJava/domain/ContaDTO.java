@@ -11,6 +11,8 @@ import java.time.LocalDate;
 @Data
 public class ContaDTO {
 
+    private long id;
+
     @NotBlank
     private int numConta;
     private float saldo;

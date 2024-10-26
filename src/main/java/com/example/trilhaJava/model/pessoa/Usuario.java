@@ -1,5 +1,6 @@
 package com.example.trilhaJava.model.pessoa;
 
+import com.example.trilhaJava.domain.UserDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,17 @@ public class Usuario implements UserDetails {
     private Long id;
     private String login;
     private String pass;
+
+    public Usuario(UserDTO usuario) {
+        this.login = usuario.getLogin();
+        this.pass = usuario.getPass();
+    }
+
+    public Usuario(Usuario pessoa) {
+        this.id = pessoa.getId();
+        this.login = pessoa.getLogin();
+        this.pass  = pessoa.getPass();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

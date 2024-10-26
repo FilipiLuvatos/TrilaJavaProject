@@ -36,6 +36,7 @@ public class Transacao {
 
 
     public Transacao(TransacaoDTO transacao) {
+        this.id = transacao.getId();
         this.saladoMovimenta = transacao.getSaladoMovimenta();
         this.tempo = transacao.getTempo();
         this.numConta = transacao.getNumConta();

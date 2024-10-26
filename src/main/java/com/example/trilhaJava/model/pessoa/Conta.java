@@ -28,6 +28,7 @@ public class Conta {
 
     public Conta(ContaDTO dados) {
 
+        this.id = dados.getId();
         this.numConta = dados.getNumConta();
         this.saldo = dados.getSaldo();
 

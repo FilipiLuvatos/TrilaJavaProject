@@ -49,8 +49,7 @@ public class PessoaF {
 
 
     public PessoaF(PessoaFDTO pessoaF) {
-
-
+        //this.id = pessoaF.getId();
         this.nome = pessoaF.getNome();
         this.sobreNome = pessoaF.getSobreNome();
         this.doc = pessoaF.getDoc();
@@ -62,7 +61,7 @@ public class PessoaF {
                 this.pessoa = TipoPessoa.valueOf(tipoPessoa.toUpperCase());
             } catch (IllegalArgumentException e) {
                 // Lidar com status inválido
-                System.err.println("Tipo pessoa invalido: " + tipoPessoa);
+                System.err.println("[Tipo pessoa invalido: " + tipoPessoa + "]");
 
             }
         }
