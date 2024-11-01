@@ -21,9 +21,9 @@ public class ContaController {
     private ContaRepository repositoryConta;
     @PostMapping
     @Transactional
-    public void cadastrarConta(@RequestBody ContaDTO N_Conta) {
+    public ResponseEntity cadastrarConta(@RequestBody ContaDTO N_Conta) {
         repositoryConta.save(new Conta(N_Conta));
-        System.out.println("[Teste_Conta]:" + N_Conta);
+        return ResponseEntity.ok(N_Conta);
     }
 
     @GetMapping("/all")

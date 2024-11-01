@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UsuarioController {
 
@@ -23,7 +23,7 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
 
-    @PostMapping
+    @PostMapping("/cad")
     @Transactional
     public ResponseEntity cadastroUsuario(@RequestBody UserDTO usuario) {
 
