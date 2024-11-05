@@ -7,6 +7,8 @@ import com.example.trilhaJava.domain.TransacaoDTO;
 import com.example.trilhaJava.model.pessoa.PessoaF;
 import com.example.trilhaJava.model.pessoa.Transacao;
 import com.example.trilhaJava.repository.TransacaoRepository;
+import com.example.trilhaJava.service.MoneyApiConverService;
+import com.example.trilhaJava.service.MoneyApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ public class TransacaoController {
 
     @Autowired
     private TransacaoRepository transacaoRepository;
+    @Autowired
+    private MoneyApiConverService moneyApiConverService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Transacao>> listaPessoaAll(){
@@ -32,7 +36,8 @@ public class TransacaoController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastraTransacao(@RequestBody TransacaoDTO transacao, UriComponentsBuilder uriB) {
-        transacaoRepository.save(new Transacao(transacao));
+
+        transacaoRepository.save(new Transacao(moneyApiConverService.converteTransacao(transacao)));
         var uri = uriB.path("/transacao/{id}").buildAndExpand(transacao.getId()).toUri();
         return ResponseEntity.created(uri).body(transacao);
 

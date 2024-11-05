@@ -29,10 +29,16 @@ public class Transacao {
     @Enumerated(EnumType.STRING)
     private TypeTransacao tipo;
     @Column(name = "saladoMovimenta")
-    private float saladoMovimenta;
+    private double saladoMovimenta;
     @Column(name = "tempo")
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:mm")
     private Date tempo;
+    @Column(name = "valorMoeda")
+    private double valorMoeda;
+
+    private String moeda;
+    @Column(name = "total")
+    private double total;
 
 
     public Transacao(TransacaoDTO transacao) {
@@ -41,6 +47,9 @@ public class Transacao {
         this.tempo = transacao.getTempo();
         this.numConta = transacao.getNumConta();
         this.tipo = transacao.getTipo();
+        this.valorMoeda = transacao.getValorMoeda();
+        this.total = transacao.getTotal();
+        this.moeda = transacao.getMoeda();
     }
 
     public void AtualizaDados(AtualizaTransacaoDTO dadoTransacao){

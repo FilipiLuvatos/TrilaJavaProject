@@ -13,6 +13,9 @@ public class TransacaoDTO {
     private Long id;
     private int numConta;
     private TypeTransacao tipo;
-    private float saladoMovimenta;
+    private double saladoMovimenta;
     private Date tempo;
+    private double valorMoeda;
+    private String moeda;
+    private double total;
 }
