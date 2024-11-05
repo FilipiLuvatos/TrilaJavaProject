@@ -17,11 +17,13 @@ import java.io.IOException;
 
 @Service
 public class PlanilhaService {
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public String readyPlanilha(MultipartFile file, UsuarioRepository usuarioRepository){
+    public String readyPlanilha(MultipartFile file){
         StringBuilder resultado = new StringBuilder("Cadastro realizado com sucesso para os seguintes usuários:\n");
 
         try (Workbook workbook = WorkbookFactory.create(file.getInputStream())) {
