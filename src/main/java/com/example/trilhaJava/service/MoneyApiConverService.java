@@ -2,8 +2,6 @@ package com.example.trilhaJava.service;
 
 import com.example.trilhaJava.domain.MoneyDTO;
 import com.example.trilhaJava.domain.TransacaoDTO;
-import com.example.trilhaJava.model.pessoa.Transacao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,7 +18,6 @@ public class MoneyApiConverService {
         if (!transacao.getMoeda().equals("BRL")) {
             //String apiKey = "de4c804a426ed1b27bc4237ed614c0a5";
 
-            System.out.println("TESTE");
             String url = "https://api.exchangeratesapi.io/v1/latest?access_key=" + apiKey;
             RestTemplate restTemplate = new RestTemplate();
             MoneyDTO response = restTemplate.getForObject(url, MoneyDTO.class);
