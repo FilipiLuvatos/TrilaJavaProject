@@ -27,6 +27,8 @@ public class UsuarioController {
     @Transactional
     public ResponseEntity cadastroUsuario(@RequestBody UserDTO usuario) {
 
+
+
         String senhaCriptografada = CriptoService.hashPassword(usuario.getPass());
         usuario.setPass(senhaCriptografada); // Define a senha criptografada no DTO
         usuarioRepository.save(new Usuario(usuario));

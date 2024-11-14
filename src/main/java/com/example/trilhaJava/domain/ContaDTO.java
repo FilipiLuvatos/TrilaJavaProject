@@ -5,17 +5,16 @@ import com.example.trilhaJava.enumeration.TipoPessoa;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 @Getter
 @Data
+@Setter
 public class ContaDTO {
 
     private long id;
-
-    @NotBlank
-    private int numConta;
+    private Integer numConta;
     private float saldo;
-    @NotBlank
     private StatusConta status;
 }

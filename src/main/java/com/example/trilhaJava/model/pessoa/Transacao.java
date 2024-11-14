@@ -24,8 +24,8 @@ public class Transacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "numConta")
-    private int numConta;
+    @Column(name = "num_Conta")
+    private Integer  numConta;
     @Enumerated(EnumType.STRING)
     private TypeTransacao tipo;
     @Column(name = "saladoMovimenta")

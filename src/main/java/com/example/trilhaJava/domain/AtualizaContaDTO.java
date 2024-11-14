@@ -12,10 +12,8 @@ import lombok.Setter;
 public class AtualizaContaDTO {
 
     private Long id;
-
-    private int numConta;
+    private Integer numConta;
     private float saldo;
-
     private StatusConta status;
 
 }
