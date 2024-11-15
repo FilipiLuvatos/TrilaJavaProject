@@ -1,8 +1,6 @@
 package com.example.trilhaJava.repository;
 
 import com.example.trilhaJava.model.pessoa.Pessoa;
-import com.example.trilhaJava.model.pessoa.PessoaF;
-import com.example.trilhaJava.model.pessoa.Transacao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

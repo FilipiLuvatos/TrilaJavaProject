@@ -1,6 +1,7 @@
 package com.example.trilhaJava.controller;
 
 
+import com.example.trilhaJava.domain.AtualizaPessoaDTO;
 import com.example.trilhaJava.domain.UserDTO;
 import com.example.trilhaJava.model.pessoa.Conta;
 import com.example.trilhaJava.model.pessoa.Usuario;
@@ -60,5 +61,16 @@ public class UsuarioController {
         }
         usuarioRepository.deleteById(ad_pessoa);
         return ResponseEntity.noContent().build(); // Retorna 204, especifico para excluão
+    }
+
+    @PutMapping("/atualiza")
+    @Transactional
+    public ResponseEntity atualizaDadosPessoa(@RequestBody UserDTO usuario){
+        var pessoa = usuarioRepository.getReferenceById(usuario.getId());
+        String senhaCriptografada = CriptoService.hashPassword(usuario.getPass());
+        usuario.setPass(senhaCriptografada); // Define a senha criptografada no DTO
+        pessoa.atualizarInfos(usuario);
+
+        return  ResponseEntity.ok(pessoa);//200
     }
 }

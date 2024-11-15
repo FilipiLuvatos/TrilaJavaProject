@@ -1,6 +1,8 @@
 package com.example.trilhaJava.model.pessoa;
 
+import com.example.trilhaJava.domain.AtualizaPessoaDTO;
 import com.example.trilhaJava.domain.UserDTO;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Table(name = "usuario")
 @Entity(name = "Usuario")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,6 +40,10 @@ public class Usuario implements UserDetails {
         this.ad_pessoa = pessoa.getAd_pessoa();
         this.login = pessoa.getLogin();
         this.pass  = pessoa.getPass();
+    }
+
+    public void atualizarInfos(UserDTO dados) {
+        this.pass = dados.getPass();
     }
 
     @Override
