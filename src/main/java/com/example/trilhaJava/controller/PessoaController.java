@@ -1,47 +1,64 @@
 package com.example.trilhaJava.controller;
 
 import com.example.trilhaJava.domain.AtualizaPessoaDTO;
-import com.example.trilhaJava.domain.DadosListaOnePessoaDTO;
-import com.example.trilhaJava.domain.PessoaFDTO;
-import com.example.trilhaJava.model.pessoa.PessoaF;
-import com.example.trilhaJava.repository.PessoaFRepository;
+import com.example.trilhaJava.domain.PessoaDTO;
+import com.example.trilhaJava.model.pessoa.Pessoa;
+import com.example.trilhaJava.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.Collections;
-import java.util.List;
 
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaController {
+
     @Autowired
-    private PessoaFRepository pessoaRepository;
+    private PessoaRepository pessoaRepository;
 
-    @PostMapping
+
+    @PostMapping("cadastro") //Cadastra Pessoa
     @Transactional
-    public ResponseEntity cadastrarPessoa(@RequestBody PessoaFDTO pessoaF, UriComponentsBuilder uriB) {
-        pessoaRepository.save(new PessoaF(pessoaF));
-        var uri = uriB.path("/pessoa/{id}").buildAndExpand(pessoaF.getId()).toUri();
-        return ResponseEntity.created(uri).body(pessoaF);
+    public ResponseEntity cadastrarPessoa(@RequestBody PessoaDTO pessoa) {
+        pessoaRepository.save(new Pessoa(pessoa));
+        return ResponseEntity.ok(pessoa);
+
+    }
+    @GetMapping("/consultaPessoa") // Consulta Pessoa
+    public ResponseEntity consultaPessoa(@RequestParam("ad_pessoa") Long ad_pessoa) {
+        var listaConsulta = pessoaRepository.getConsultaPessoa(ad_pessoa);
+
+        if(listaConsulta.isEmpty()){
+            String menssagemPessoa = "[Consulta não retornou dados]";
+            return ResponseEntity.ok(menssagemPessoa);
+
+        }else return ResponseEntity.ok(listaConsulta);
+
+    }
+    @GetMapping("/consultaAll") //Consulta todas pessoas
+    public ResponseEntity consultaAll() {
+        var listaConsulta = pessoaRepository.findAll();
+
+        if(listaConsulta.isEmpty()){
+            String menssagemPessoa = "[Consulta não retornou dados]";
+            return ResponseEntity.ok(menssagemPessoa);
+
+        }else return ResponseEntity.ok(listaConsulta);
 
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<PessoaF>>listaPessoaAll(){
-        var listaPessoa = pessoaRepository.findAll();
-        return ResponseEntity.ok(listaPessoa);//200
+    @DeleteMapping("/delete/{ad_pessoa}")
+    public ResponseEntity<String> excluirPessoa(@PathVariable("ad_pessoa") Long ad_pessoa) {
+
+        if (!pessoaRepository.existsById(ad_pessoa)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("[Pessoa não encontrada.]");
+        }
+        pessoaRepository.deleteById(ad_pessoa);
+        return ResponseEntity.noContent().build(); // Retorna 204, especifico para excluão
     }
 
-
-    @GetMapping("/one")
-    public List<DadosListaOnePessoaDTO>listaPessoaOne(){
-        return pessoaRepository.findAll().stream().map(DadosListaOnePessoaDTO:: new).toList();
-    }
-
-    @PutMapping
+    @PutMapping("/atualiza")
     @Transactional
     public ResponseEntity atualizaDadosPessoa(@RequestBody AtualizaPessoaDTO atualizaDados){
         var pessoa = pessoaRepository.getReferenceById(atualizaDados.getId());
@@ -50,19 +67,8 @@ public class PessoaController {
         return  ResponseEntity.ok(pessoa);//200
     }
 
-    @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity excluirPessoa(@PathVariable Long id){
 
-        pessoaRepository.deleteAllById(Collections.singleton(id));
-        return ResponseEntity.noContent().build(); // Retorna 204, especifico para excluão
-    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DadosListaOnePessoaDTO>listaPessoaOne(@PathVariable Long id){
-
-        var pessoa = pessoaRepository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosListaOnePessoaDTO(pessoa));
-    }
 
 }
+
