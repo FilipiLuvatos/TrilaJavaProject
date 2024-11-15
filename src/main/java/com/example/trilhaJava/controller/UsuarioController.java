@@ -1,6 +1,6 @@
 package com.example.trilhaJava.controller;
 
-import com.example.trilhaJava.domain.DadosListaOnePessoaDTO;
+
 import com.example.trilhaJava.domain.UserDTO;
 import com.example.trilhaJava.model.pessoa.Conta;
 import com.example.trilhaJava.model.pessoa.Usuario;

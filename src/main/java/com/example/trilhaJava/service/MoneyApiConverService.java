@@ -16,7 +16,6 @@ public class MoneyApiConverService {
     public TransacaoDTO converteTransacao(TransacaoDTO transacao){
 
         if (!transacao.getMoeda().equals("BRL")) {
-            //String apiKey = "de4c804a426ed1b27bc4237ed614c0a5";
 
             String url = "https://api.exchangeratesapi.io/v1/latest?access_key=" + apiKey;
             RestTemplate restTemplate = new RestTemplate();
@@ -25,7 +24,7 @@ public class MoneyApiConverService {
             double valueMoney = response.getRates().get(transacao.getMoeda());//DOLAR
             double valueMoneyEuro = response.getRates().get("BRL");
             double valorConvertido = converteMoeda(valueMoney, valueMoneyEuro, transacao.getSaladoMovimenta());
-            transacao.setValorMoeda(valueMoney);
+            transacao.setValorMoeda(valueMoneyEuro);
             transacao.setTotal(valorConvertido);
             return transacao;
         }

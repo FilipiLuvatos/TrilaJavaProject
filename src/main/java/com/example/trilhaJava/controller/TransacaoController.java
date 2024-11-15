@@ -36,7 +36,7 @@ public class TransacaoController {
     }
 
     @PostMapping("/relatorio")
-    public ResponseEntity<byte[]> listaTransacaoConta(@RequestBody RelaTransDTO transacao) {
+    public ResponseEntity<byte[]> listaTransacaoContaRelatorio(@RequestBody RelaTransDTO transacao) {
         System.out.println(transacao.getNumConta());
         var listaTransacao = transacaoRepository.getTransacaoConta(transacao.getNumConta());
 
@@ -58,6 +58,14 @@ public class TransacaoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(("Erro ao gerar o arquivo Excel: " + e.getMessage()).getBytes());
         }
+    }
+
+
+    @PostMapping("/lista") //get
+    public ResponseEntity listaTransacaoConta(@RequestBody RelaTransDTO transacao) {
+        System.out.println(transacao.getNumConta());
+        var listaTransacao = transacaoRepository.getTransacaoConta(transacao.getNumConta());
+        return ResponseEntity.ok(listaTransacao);
     }
 
     @PostMapping

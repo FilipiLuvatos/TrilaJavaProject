@@ -1,6 +1,6 @@
 package com.example.trilhaJava.exception;
 
-import com.example.trilhaJava.domain.DadosListaOnePessoaDTO;
+
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

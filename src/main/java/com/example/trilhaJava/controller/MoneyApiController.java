@@ -23,7 +23,7 @@ public class MoneyApiController {
 
         RestTemplate restTemplate = new RestTemplate();
         MoneyDTO response = restTemplate.getForObject(url, MoneyDTO.class);
-        System.out.println(response.getRates().get("USD"));
+
         return response;
     }
 }
