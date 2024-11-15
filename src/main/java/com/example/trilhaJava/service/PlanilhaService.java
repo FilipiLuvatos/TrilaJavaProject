@@ -45,14 +45,14 @@ public class PlanilhaService {
                 if (response.getStatusCode().is2xxSuccessful()) {
                     resultado.append("Usuário ").append(login).append(" cadastrado com sucesso.\n");
                 } else {
-                    resultado.append("Erro ao cadastrar usuário ").append(login).append(": ").append(response.getBody()).append("\n");
+                    resultado.append("ErroPessoa ao cadastrar usuário ").append(login).append(": ").append(response.getBody()).append("\n");
                 }
             }
             return resultado.toString();
         } catch (
                 IOException e) {
             e.printStackTrace(); // Trate o erro adequadamente
-            return "[Erro ao processar o arquivo!]";
+            return "[ErroPessoa ao processar o arquivo!]";
         }
 
     }

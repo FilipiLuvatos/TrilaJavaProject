@@ -50,7 +50,7 @@ public class AutenticacaoController {
             return ResponseEntity.ok(new DadosTokenJWTDTO(token));
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("[Erro ao gerar o Token!]");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("[ErroPessoa ao gerar o Token!]");
         }
 
     }

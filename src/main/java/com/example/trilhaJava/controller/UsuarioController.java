@@ -7,6 +7,7 @@ import com.example.trilhaJava.model.pessoa.Usuario;
 import com.example.trilhaJava.repository.UsuarioRepository;
 import com.example.trilhaJava.service.CriptoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +27,9 @@ public class UsuarioController {
     @PostMapping("/cad")
     @Transactional
     public ResponseEntity cadastroUsuario(@RequestBody UserDTO usuario) {
-
-
-
         String senhaCriptografada = CriptoService.hashPassword(usuario.getPass());
         usuario.setPass(senhaCriptografada); // Define a senha criptografada no DTO
         usuarioRepository.save(new Usuario(usuario));
-        System.out.println("[Usuario cadastrado]:" + usuario);
         return ResponseEntity.ok().build();
     }
 
@@ -43,18 +40,25 @@ public class UsuarioController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Usuario>listaUsuarioOne(@PathVariable Long id){
+    @GetMapping("/consulta")
+    public ResponseEntity consultaUsuario(@RequestParam("ad_pessoa") Long ad_pessoa){
+        var listaConsulta = usuarioRepository.getConsultaUsuario(ad_pessoa);
 
-        var pessoa = usuarioRepository.getReferenceById(id);
-        return ResponseEntity.ok(new Usuario(pessoa));
+        if(listaConsulta.isEmpty()){
+            String menssagemPessoa = "[Consulta não retornou dados]";
+            return ResponseEntity.ok(menssagemPessoa);
+
+        }else return ResponseEntity.ok(listaConsulta);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{ad_pessoa}")
     @Transactional
-    public ResponseEntity excluirPessoa(@PathVariable Long id){
+    public ResponseEntity excluirPessoa(@PathVariable("ad_pessoa") Long ad_pessoa){
 
-        usuarioRepository.deleteAllById(Collections.singleton(id));
+        if (!usuarioRepository.existsById(ad_pessoa)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("[Pessoa não encontrada.]");
+        }
+        usuarioRepository.deleteById(ad_pessoa);
         return ResponseEntity.noContent().build(); // Retorna 204, especifico para excluão
     }
 }

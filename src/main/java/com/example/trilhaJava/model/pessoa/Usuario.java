@@ -22,16 +22,19 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long ad_pessoa;
     private String login;
     private String pass;
 
     public Usuario(UserDTO usuario) {
         this.login = usuario.getLogin();
         this.pass = usuario.getPass();
+        this.ad_pessoa = usuario.getAd_Pessoa();
     }
 
     public Usuario(Usuario pessoa) {
         this.id = pessoa.getId();
+        this.ad_pessoa = pessoa.getAd_pessoa();
         this.login = pessoa.getLogin();
         this.pass  = pessoa.getPass();
     }

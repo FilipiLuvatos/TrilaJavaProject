@@ -56,7 +56,7 @@ public class TransacaoController {
             // Tratar exceção e retornar erro adequado
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(("Erro ao gerar o arquivo Excel: " + e.getMessage()).getBytes());
+                    .body(("ErroPessoa ao gerar o arquivo Excel: " + e.getMessage()).getBytes());
         }
     }
 

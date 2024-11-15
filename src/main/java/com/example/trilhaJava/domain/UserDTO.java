@@ -8,6 +8,7 @@ import lombok.Getter;
 public class UserDTO {
 
     private Long id;
+    private Long ad_Pessoa;
     private String login;
     private String pass;
 }

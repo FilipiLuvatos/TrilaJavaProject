@@ -4,14 +4,18 @@ import com.example.trilhaJava.enumeration.TipoPessoa;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Data
 @Getter
+@Setter
 public class AtualizaPessoaDTO {
 
     private Long id;
+
+    private Long ad_pessoa;
 
     
     private String nome;
