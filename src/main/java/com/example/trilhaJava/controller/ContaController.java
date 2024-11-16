@@ -5,6 +5,7 @@ import com.example.trilhaJava.domain.ContaDTO;
 import com.example.trilhaJava.enumeration.TypeTransacao;
 import com.example.trilhaJava.model.pessoa.Conta;
 import com.example.trilhaJava.repository.ContaRepository;
+import com.example.trilhaJava.service.ContaContService;
 import com.example.trilhaJava.service.ValidaContaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,44 +26,38 @@ public class ContaController {
     @Autowired
     private ContaRepository repositoryConta;
 
+    @Autowired
+    private ContaContService contaContService;
+
     @PostMapping("/cadastra")
     @Transactional
-    public ResponseEntity cadastrarConta(@RequestBody ContaDTO N_Conta) {
-
-            repositoryConta.save(new Conta(N_Conta));
-            return ResponseEntity.ok(N_Conta);
+    public ResponseEntity cadastrarConta(@RequestBody ContaDTO NumConta) {
+            return ResponseEntity.ok(contaContService.cadastrarConta(NumConta));
 
     }
 
     @GetMapping("/consultaConta")
-    public ResponseEntity consultaTransacao(@RequestParam("fkNumConta") Long numConta) {
-        var listaTransacao = repositoryConta.getConsultaConta(numConta);
-        return ResponseEntity.ok(listaTransacao);
+    public ResponseEntity consultaConta(@RequestParam("fkNumConta") Long numConta) {
+        return ResponseEntity.ok(contaContService.consultaConta(numConta));
     }
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<Conta>>listaPessoaAll(){
-        var lista = repositoryConta.findAll();
-        return ResponseEntity.ok(lista); //200
+    public ResponseEntity<List<Conta>>listaAllConta(){
+        return ResponseEntity.ok(contaContService.listaAllConta()); //200
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity atualizaDadosPessoa(@RequestBody AtualizaContaDTO atualizaDados){
-
-            var conta = repositoryConta.getReferenceById(atualizaDados.getId());
-            conta.atualizarInfosConta(atualizaDados);
-            return  ResponseEntity.ok(atualizaDados);
-
+    public ResponseEntity atualizaDadosConta(@RequestBody AtualizaContaDTO atualizaDados){
+            return  ResponseEntity.ok(contaContService.atualizaDadosConta(atualizaDados));
     }
 
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity excluirPessoa(@PathVariable Long id){
-
-        repositoryConta.deleteAllById(Collections.singleton(id));
+    public ResponseEntity excluiConta(@PathVariable Long id){
+        contaContService.excluiConta(id);
         return ResponseEntity.noContent().build(); // Retorna 204, especifico para excluão
     }
 
