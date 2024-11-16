@@ -20,8 +20,10 @@ public class Conta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "num_Conta")
-    private int numConta;
+    @Column(name = "fk_num_Conta")
+    private Integer fknumConta;
+    @Column(name = "fk_ad_pessoa")
+    private Integer fkAdPessoa;
     private float saldo;
     @Enumerated(EnumType.STRING)
     private StatusConta status;
@@ -29,8 +31,9 @@ public class Conta {
     public Conta(ContaDTO dados) {
 
         this.id = dados.getId();
-        this.numConta = dados.getNumConta();
+        this.fknumConta = dados.getFkNumConta();
         this.saldo = dados.getSaldo();
+        this.fkAdPessoa = dados.getFkAdPessoa();
 
         // Verifique se o status não é nulo antes de chamar toUpperCase()
         String statusString = String.valueOf(dados.getStatus());

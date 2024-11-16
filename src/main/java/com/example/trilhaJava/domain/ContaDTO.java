@@ -14,7 +14,8 @@ import java.time.LocalDate;
 public class ContaDTO {
 
     private long id;
-    private Integer numConta;
+    private Integer fkAdPessoa;
+    private Integer fkNumConta;
     private float saldo;
     private StatusConta status;
 }

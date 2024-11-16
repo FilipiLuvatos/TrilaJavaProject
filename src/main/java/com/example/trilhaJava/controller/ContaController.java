@@ -2,6 +2,7 @@ package com.example.trilhaJava.controller;
 
 import com.example.trilhaJava.domain.AtualizaContaDTO;
 import com.example.trilhaJava.domain.ContaDTO;
+import com.example.trilhaJava.enumeration.TypeTransacao;
 import com.example.trilhaJava.model.pessoa.Conta;
 import com.example.trilhaJava.repository.ContaRepository;
 import com.example.trilhaJava.service.ValidaContaService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,18 +29,17 @@ public class ContaController {
     @Transactional
     public ResponseEntity cadastrarConta(@RequestBody ContaDTO N_Conta) {
 
-        try {
-
-            validaContaService.validaConta(N_Conta);
             repositoryConta.save(new Conta(N_Conta));
             return ResponseEntity.ok(N_Conta);
 
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(e.getMessage());
-        }
-
     }
+
+    @GetMapping("/consultaConta")
+    public ResponseEntity consultaTransacao(@RequestParam("fkNumConta") Long numConta) {
+        var listaTransacao = repositoryConta.getConsultaConta(numConta);
+        return ResponseEntity.ok(listaTransacao);
+    }
+
 
     @GetMapping("/all")
     public ResponseEntity<List<Conta>>listaPessoaAll(){
@@ -49,17 +50,10 @@ public class ContaController {
     @PutMapping
     @Transactional
     public ResponseEntity atualizaDadosPessoa(@RequestBody AtualizaContaDTO atualizaDados){
-        try {
 
-            validaContaService.validaAtualizaConta(atualizaDados);
             var conta = repositoryConta.getReferenceById(atualizaDados.getId());
             conta.atualizarInfosConta(atualizaDados);
             return  ResponseEntity.ok(atualizaDados);
-
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage());
-        }
 
     }
 

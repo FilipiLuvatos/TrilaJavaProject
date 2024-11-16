@@ -13,9 +13,6 @@ public class ValidaContaService {
 
     public void validaConta(ContaDTO conta){
 
-        if (conta.getNumConta() == null || conta.getNumConta() < 0) {
-            throw new IllegalArgumentException("[Número da conta incorreto]");
-        }
         if (conta.getStatus() == null) {
             throw new IllegalArgumentException("[O tipo de status não pode ser nulo.]");
         }
