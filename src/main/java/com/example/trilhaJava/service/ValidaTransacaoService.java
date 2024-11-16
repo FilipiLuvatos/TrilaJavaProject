@@ -42,9 +42,7 @@ public class ValidaTransacaoService {
 
     public void validaAtualizaTransacao (AtualizaTransacaoDTO atualiza) {
 
-        if (atualiza.getNumConta() == null || atualiza.getNumConta() < 0) {
-            throw new IllegalArgumentException("[O valor da conta não pode ser negativo]");
-        } else if (atualiza.getTipo() == null) {
+        if (atualiza.getTipo() == null) {
             throw new IllegalArgumentException("O[[ tipo de transação não pode ser nulo.]]");
         }
         boolean tipoValido = Arrays.stream(TypeTransacao.values())

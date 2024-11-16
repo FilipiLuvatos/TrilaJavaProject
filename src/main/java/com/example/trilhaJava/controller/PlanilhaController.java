@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/planilha")
-public class PlanihlaController {
+public class PlanilhaController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;

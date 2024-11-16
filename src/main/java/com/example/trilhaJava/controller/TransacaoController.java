@@ -6,6 +6,7 @@ import com.example.trilhaJava.model.pessoa.Transacao;
 import com.example.trilhaJava.repository.TransacaoRepository;
 import com.example.trilhaJava.service.MoneyApiConverService;
 import com.example.trilhaJava.service.RelatorioContaExcel;
+import com.example.trilhaJava.service.TransacaoContService;
 import com.example.trilhaJava.service.ValidaTransacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -32,34 +33,23 @@ public class TransacaoController {
     @Autowired
     private ValidaTransacaoService validaTransacaoService;
 
+    @Autowired
+    private TransacaoContService transacaoContService;
 
     @PostMapping
     @Transactional
     public ResponseEntity cadastraTransacao(@RequestBody TransacaoDTO transacao, UriComponentsBuilder uriB) {
-
-        try{
-            validaTransacaoService.validaTransacao(transacao);
-            transacaoRepository.save(new Transacao(moneyApiConverService.converteTransacao(transacao)));
-            var uri = uriB.path("/transacao/{id}").buildAndExpand(transacao.getId()).toUri();
-            return ResponseEntity.created(uri).body(transacao);
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage());
-        }
-
-
+        return ResponseEntity.ok(transacaoContService.cadastraTransacao(transacao,uriB));
     }
     @GetMapping("/all")
     public ResponseEntity<List<Transacao>> listaTransacaoAll(){
-        var listaPessoa = transacaoRepository.findAll();
-        return ResponseEntity.ok(listaPessoa);//200
+        return ResponseEntity.ok(transacaoContService.listaTransacaoAll());//200
     }
 
 
     @GetMapping("/allTransacao")
-    public ResponseEntity<List<Transacao>> listaTransacaoConta(@RequestParam("fkNumConta") Integer numConta){
-        var listaPessoa = transacaoRepository.getTransacaoConta(numConta);
-        return ResponseEntity.ok(listaPessoa);//200
+    public ResponseEntity<List<Transacao>> consultaAllTransaca(@RequestParam("fkNumConta") Integer numConta){
+        return ResponseEntity.ok(transacaoContService.consultaAllTransaca(numConta));//200
     }
 
     @PostMapping("/relatorio")
@@ -89,11 +79,10 @@ public class TransacaoController {
 
 
     @GetMapping("/consultaTransacao")
-    public ResponseEntity consultaTransacao(@RequestParam("fkNumConta") Long numConta,
+    public ResponseEntity consultaTransacaoConta(@RequestParam("fkNumConta") Long numConta,
                                             @RequestParam("dtInicio") LocalDate dt_inicio,
                                             @RequestParam("Tipo") TypeTransacao tipo) {
-        var listaTransacao = transacaoRepository.getTransacao(numConta,dt_inicio, tipo);
-        return ResponseEntity.ok(listaTransacao);
+        return ResponseEntity.ok(transacaoContService.consultaTransacaoConta(numConta,dt_inicio,tipo));
     }
 
 
@@ -101,16 +90,14 @@ public class TransacaoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluirTransacao(@PathVariable Long id){
-
-        transacaoRepository.deleteAllById(Collections.singleton(id));
+        transacaoContService.excluirTransacao(id);
         return ResponseEntity.noContent().build(); // Retorna 204, especifico para excluão
     }
 
     @PutMapping("/atualiza")
     @Transactional
     public ResponseEntity atualizaDadosTransacao(@RequestBody AtualizaTransacaoDTO atualizaDados){
-        var transacaoid = transacaoRepository.getReferenceById(atualizaDados.getId());
-        transacaoid.AtualizaDados(atualizaDados);
+        transacaoContService.atualizaDadosTransacao(atualizaDados);
         return  ResponseEntity.ok(atualizaDados);
 
     }

@@ -13,7 +13,7 @@ import java.util.Date;
 public class AtualizaTransacaoDTO {
 
     private Long id;
-    private Integer numConta;
+    private Integer fkNumConta;
     private TypeTransacao tipo;
     private double saladoMovimenta;
     private Date tempo;

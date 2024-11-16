@@ -57,5 +57,6 @@ public class Transacao {
 
     public void AtualizaDados(AtualizaTransacaoDTO dadoTransacao){
         this.saladoMovimenta = dadoTransacao.getSaladoMovimenta();
+        this.fkNumConta = dadoTransacao.getFkNumConta();
     }
 }
