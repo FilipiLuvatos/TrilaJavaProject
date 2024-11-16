@@ -16,13 +16,13 @@ public class ValidaTransacaoService {
         if (transacao.getSaladoMovimenta() < 0.0) {
             throw new IllegalArgumentException("[O valor não pode ser negativo.]");
         }
-        else if (transacao.getNumConta() == null || transacao.getNumConta() < 0) {
+        else if (transacao.getFkNumConta() == null || transacao.getFkNumConta() < 0) {
             throw new IllegalArgumentException("[O valor da conta não pode ser negativo]");
         }
-        else if (transacao.getTempo() == null) {
+        else if (transacao.getDtTransacao() == null) {
             throw new IllegalArgumentException("[A data da transação não pode ser nula.]");
         }
-        else if (transacao.getTempo().after(new Date())) {
+        else if (transacao.getDtTransacao().after(new Date())) {
             throw new IllegalArgumentException("[A data da transação não pode ser no futuro.]");
         }
         else if (transacao.getMoeda() == null || transacao.getMoeda().isEmpty()) {

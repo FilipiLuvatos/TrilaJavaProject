@@ -24,15 +24,17 @@ public class Transacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "num_Conta")
-    private Integer  numConta;
+    @Column(name = "fk_ad_pessoa")
+    private  Integer fkAdPessoa;
+    @Column(name = "fk_num_Conta")
+    private Integer  fkNumConta;
     @Enumerated(EnumType.STRING)
     private TypeTransacao tipo;
     @Column(name = "saladoMovimenta")
     private double saladoMovimenta;
-    @Column(name = "tempo")
+    @Column(name = "dt_Transacao")
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:mm")
-    private Date tempo;
+    private Date dtTransacao;
     @Column(name = "valorMoeda")
     private double valorMoeda;
 
@@ -43,9 +45,10 @@ public class Transacao {
 
     public Transacao(TransacaoDTO transacao) {
         this.id = transacao.getId();
+        this.fkAdPessoa = transacao.getFkAdPessoa();
         this.saladoMovimenta = transacao.getSaladoMovimenta();
-        this.tempo = transacao.getTempo();
-        this.numConta = transacao.getNumConta();
+        this.dtTransacao = transacao.getDtTransacao();
+        this.fkNumConta = transacao.getFkNumConta();
         this.tipo = transacao.getTipo();
         this.valorMoeda = transacao.getValorMoeda();
         this.total = transacao.getTotal();
@@ -54,6 +57,5 @@ public class Transacao {
 
     public void AtualizaDados(AtualizaTransacaoDTO dadoTransacao){
         this.saladoMovimenta = dadoTransacao.getSaladoMovimenta();
-        this.tempo = dadoTransacao.getTempo();
     }
 }

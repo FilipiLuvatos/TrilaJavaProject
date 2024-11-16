@@ -37,13 +37,14 @@ public class RelatorioContaExcel {
         for (Transacao transacao : listaTransacao) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(transacao.getId());
-            row.createCell(1).setCellValue(transacao.getNumConta());
-            row.createCell(2).setCellValue(transacao.getTipo().toString());  // Se for um Enum, converta para String
-            row.createCell(3).setCellValue(transacao.getSaladoMovimenta());
-            row.createCell(4).setCellValue(transacao.getTempo().toString());
-            row.createCell(5).setCellValue(transacao.getValorMoeda());
-            row.createCell(6).setCellValue(transacao.getMoeda());
-            row.createCell(7).setCellValue(transacao.getTotal());
+            row.createCell(1).setCellValue(transacao.getFkAdPessoa());
+            row.createCell(2).setCellValue(transacao.getFkNumConta());
+            row.createCell(3).setCellValue(transacao.getTipo().toString());  // Se for um Enum, converta para String
+            row.createCell(4).setCellValue(transacao.getSaladoMovimenta());
+            row.createCell(5).setCellValue(transacao.getDtTransacao().toString());
+            row.createCell(6).setCellValue(transacao.getValorMoeda());
+            row.createCell(7).setCellValue(transacao.getMoeda());
+            row.createCell(8).setCellValue(transacao.getTotal());
         }
 
         // Escrevendo o conteúdo para um byte array (você pode salvar o arquivo no disco ou retornar via Response)

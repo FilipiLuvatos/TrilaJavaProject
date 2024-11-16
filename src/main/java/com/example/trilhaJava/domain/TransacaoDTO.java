@@ -13,10 +13,11 @@ import java.util.Date;
 public class TransacaoDTO {
 
     private Long id;
-    private Integer  numConta;
+    private Integer fkAdPessoa;
+    private Integer  fkNumConta;
     private TypeTransacao tipo;
     private double saladoMovimenta;
-    private Date tempo;
+    private Date dtTransacao;
     private double valorMoeda;
     private String moeda;
     private double total;
