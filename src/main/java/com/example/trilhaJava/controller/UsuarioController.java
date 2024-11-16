@@ -7,6 +7,7 @@ import com.example.trilhaJava.model.pessoa.Conta;
 import com.example.trilhaJava.model.pessoa.Usuario;
 import com.example.trilhaJava.repository.UsuarioRepository;
 import com.example.trilhaJava.service.CriptoService;
+import com.example.trilhaJava.service.UsuarioContService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +25,14 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private UsuarioContService usuarioContService;
+
 
     @PostMapping("/cad")
     @Transactional
     public ResponseEntity cadastroUsuario(@RequestBody UserDTO usuario) {
-        String senhaCriptografada = CriptoService.hashPassword(usuario.getPass());
-        usuario.setPass(senhaCriptografada); // Define a senha criptografada no DTO
-        usuarioRepository.save(new Usuario(usuario));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(usuarioContService.cadastroUsuario(usuario));
     }
 
     @GetMapping("/all")
@@ -43,34 +44,19 @@ public class UsuarioController {
 
     @GetMapping("/consulta")
     public ResponseEntity consultaUsuario(@RequestParam("ad_pessoa") Long ad_pessoa){
-        var listaConsulta = usuarioRepository.getConsultaUsuario(ad_pessoa);
-
-        if(listaConsulta.isEmpty()){
-            String menssagemPessoa = "[Consulta não retornou dados]";
-            return ResponseEntity.ok(menssagemPessoa);
-
-        }else return ResponseEntity.ok(listaConsulta);
+        return ResponseEntity.ok(usuarioContService.consultaUsuario(ad_pessoa));
     }
 
     @DeleteMapping("/delete/{ad_pessoa}")
     @Transactional
     public ResponseEntity excluirPessoa(@PathVariable("ad_pessoa") Long ad_pessoa){
-
-        if (!usuarioRepository.existsById(ad_pessoa)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("[Pessoa não encontrada.]");
-        }
-        usuarioRepository.deleteById(ad_pessoa);
+        usuarioContService.excluirPessoa(ad_pessoa);
         return ResponseEntity.noContent().build(); // Retorna 204, especifico para excluão
     }
 
     @PutMapping("/atualiza")
     @Transactional
     public ResponseEntity atualizaDadosPessoa(@RequestBody UserDTO usuario){
-        var pessoa = usuarioRepository.getReferenceById(usuario.getId());
-        String senhaCriptografada = CriptoService.hashPassword(usuario.getPass());
-        usuario.setPass(senhaCriptografada); // Define a senha criptografada no DTO
-        pessoa.atualizarInfos(usuario);
-
-        return  ResponseEntity.ok(pessoa);//200
+        return  ResponseEntity.ok(usuarioContService.atualizaDadosPessoa(usuario));//200
     }
 }
