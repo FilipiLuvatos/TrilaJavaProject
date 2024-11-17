@@ -3,10 +3,7 @@ package com.example.trilhaJava.service;
 import com.example.trilhaJava.domain.UserDTO;
 import com.example.trilhaJava.model.pessoa.Usuario;
 import com.example.trilhaJava.repository.UsuarioRepository;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,12 +27,22 @@ public class PlanilhaService {
                 Sheet sheet = workbook.getSheetAt(0); // Lê a primeira aba
 
             for (Row row : sheet) {
+
+                Cell adPessoaCell = row.getCell(0);
+                Long ad_pessoa = null;
+                if (adPessoaCell.getCellType() == CellType.STRING) {
+                    ad_pessoa = Long.valueOf(adPessoaCell.getStringCellValue());
+                } else if (adPessoaCell.getCellType() == CellType.NUMERIC) {
+                    ad_pessoa = (long) adPessoaCell.getNumericCellValue();
+                }
                 // Supondo que o login esteja na primeira coluna e a senha na segunda
-                String login = row.getCell(0).getStringCellValue();
-                String pass = row.getCell(1).getStringCellValue();
+                //Long ad_pessoa = Long.valueOf(row.getCell(0).getStringCellValue());
+                String login = row.getCell(1).getStringCellValue();
+                String pass = row.getCell(2).getStringCellValue();
 
                 // Criar o objeto UserDTO
                 UserDTO usuario = new UserDTO();
+                usuario.setAd_Pessoa(ad_pessoa);
                 usuario.setLogin(login);
                 usuario.setPass(pass);
 

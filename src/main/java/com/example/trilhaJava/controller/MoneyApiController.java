@@ -1,7 +1,10 @@
 package com.example.trilhaJava.controller;
 
 import com.example.trilhaJava.domain.MoneyDTO;
+import com.example.trilhaJava.service.MoneyApiControService;
+import com.example.trilhaJava.service.MoneyApiService;
 import lombok.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,16 +17,10 @@ import java.util.Map;
 @RequestMapping("/money")
 public class MoneyApiController {
 
-    @org.springframework.beans.factory.annotation.Value("${api.key}")
-    private String apiKey;
-
+    @Autowired
+    private MoneyApiControService moneyApiControService;
     @GetMapping("/exchange-rates")
     public MoneyDTO getExchangeRates() {
-        String url = "https://api.exchangeratesapi.io/v1/latest?access_key=" + apiKey;
-
-        RestTemplate restTemplate = new RestTemplate();
-        MoneyDTO response = restTemplate.getForObject(url, MoneyDTO.class);
-
-        return response;
+        return moneyApiControService.consultaMoneyApi();
     }
 }

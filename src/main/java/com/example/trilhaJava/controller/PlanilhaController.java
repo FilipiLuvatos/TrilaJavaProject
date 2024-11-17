@@ -27,14 +27,4 @@ public class PlanilhaController {
         return planilhaService.readyPlanilha(file);
     }
 
-    public ResponseEntity<String> cadastrarUsuario(UserDTO usuario) {
-        String senhaCriptografada = CriptoService.hashPassword(usuario.getPass());
-        usuario.setPass(senhaCriptografada); // Define a senha criptografada no DTO
-        usuarioRepository.save(new Usuario(usuario));
-        System.out.println("[Usuario cadastrado]:" + usuario);
-        return ResponseEntity.ok().build();
-
-    }
-
-
 }
