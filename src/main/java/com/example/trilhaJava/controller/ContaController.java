@@ -6,7 +6,6 @@ import com.example.trilhaJava.enumeration.TypeTransacao;
 import com.example.trilhaJava.model.pessoa.Conta;
 import com.example.trilhaJava.repository.ContaRepository;
 import com.example.trilhaJava.service.ContaContService;
-import com.example.trilhaJava.service.ValidaContaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +21,6 @@ import java.util.List;
 @RequestMapping("/conta")
 public class ContaController {
 
-    @Autowired
-    private ValidaContaService validaContaService;
     @Autowired
     private ContaRepository repositoryConta;
 

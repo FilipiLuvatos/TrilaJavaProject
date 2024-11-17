@@ -7,7 +7,6 @@ import com.example.trilhaJava.repository.TransacaoRepository;
 import com.example.trilhaJava.service.MoneyApiConverService;
 import com.example.trilhaJava.service.RelatorioContaExcel;
 import com.example.trilhaJava.service.TransacaoContService;
-import com.example.trilhaJava.service.ValidaTransacaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -31,8 +30,6 @@ public class TransacaoController {
     private TransacaoRepository transacaoRepository;
     @Autowired
     private MoneyApiConverService moneyApiConverService;
-    @Autowired
-    private ValidaTransacaoService validaTransacaoService;
 
     @Autowired
     private TransacaoContService transacaoContService;

@@ -21,8 +21,6 @@ public class TransacaoContService {
     private TransacaoRepository transacaoRepository;
     @Autowired
     private MoneyApiConverService moneyApiConverService;
-    @Autowired
-    private ValidaTransacaoService validaTransacaoService;
 
     public Transacao cadastraTransacao(TransacaoDTO transacao,  UriComponentsBuilder uriB){
 

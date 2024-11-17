@@ -12,8 +12,7 @@ import java.util.List;
 
 @Service
 public class ContaContService {
-    @Autowired
-    private ValidaContaService validaContaService;
+
     @Autowired
     private ContaRepository repositoryConta;
 
