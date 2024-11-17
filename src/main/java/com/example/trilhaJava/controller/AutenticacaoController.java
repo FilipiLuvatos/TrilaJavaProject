@@ -39,7 +39,14 @@ public class AutenticacaoController {
 
         Usuario usuario = (Usuario) usuarioRepository.findByLogin(dados.login);
 
-        if (!CriptoService.checkPassword(dados.pass, usuario.getPass())) {
+        var senhaBanco = usuario.getPass();
+        String prefix = "$2a$10$";
+
+        if (!senhaBanco.startsWith(prefix)) {
+            senhaBanco = prefix + senhaBanco;  // Adiciona o prefixo no início
+        }
+
+        if (!CriptoService.checkPassword(dados.pass, senhaBanco)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // Senha incorreta
         }
 

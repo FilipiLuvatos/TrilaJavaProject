@@ -15,7 +15,10 @@ public class UsuarioContService {
 
     public UserDTO cadastroUsuario (UserDTO usuario){
         String senhaCriptografada = CriptoService.hashPassword(usuario.getPass());
-        usuario.setPass(senhaCriptografada); // Define a senha criptografada no DTO
+
+        String senhaTratada = trataSenha(senhaCriptografada);
+
+        usuario.setPass(senhaTratada); // Define a senha criptografada no DTO
         usuarioRepository.save(new Usuario(usuario));
         return usuario;
     }
@@ -29,11 +32,15 @@ public class UsuarioContService {
     public List<Usuario> atualizaDadosPessoa (UserDTO usuario){
         var pessoa = usuarioRepository.getReferenceById(usuario.getId());
         String senhaCriptografada = CriptoService.hashPassword(usuario.getPass());
-        usuario.setPass(senhaCriptografada); // Define a senha criptografada no DTO
+        String senhaTratada = trataSenha(senhaCriptografada);
+        usuario.setPass(senhaTratada); // Define a senha criptografada no DTO
         pessoa.atualizarInfos(usuario);
 
         var user = usuarioRepository.getConsultaUsuario(usuario.getAd_Pessoa());
         return user;
+    }
+    public String trataSenha(String senha){
+        return senha.replaceFirst("^\\$2a\\$10\\$", "");
     }
 
 }

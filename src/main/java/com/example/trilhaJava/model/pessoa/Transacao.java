@@ -37,7 +37,6 @@ public class Transacao {
     private Date dtTransacao;
     @Column(name = "valorMoeda")
     private double valorMoeda;
-
     private String moeda;
     @Column(name = "total")
     private double total;
