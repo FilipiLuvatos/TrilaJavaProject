@@ -8,6 +8,7 @@ import com.example.trilhaJava.model.pessoa.Usuario;
 import com.example.trilhaJava.repository.UsuarioRepository;
 import com.example.trilhaJava.service.CriptoService;
 import com.example.trilhaJava.service.UsuarioContService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +57,7 @@ public class UsuarioController {
 
     @PutMapping("/atualiza")
     @Transactional
-    public ResponseEntity atualizaDadosPessoa(@RequestBody UserDTO usuario){
+    public ResponseEntity atualizaDadosPessoa(@Valid @RequestBody UserDTO usuario){
         return  ResponseEntity.ok(usuarioContService.atualizaDadosPessoa(usuario));//200
     }
 }

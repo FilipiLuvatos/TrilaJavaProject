@@ -7,6 +7,7 @@ import com.example.trilhaJava.model.pessoa.Conta;
 import com.example.trilhaJava.repository.ContaRepository;
 import com.example.trilhaJava.service.ContaContService;
 import com.example.trilhaJava.service.ValidaContaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class ContaController {
 
     @PostMapping("/cadastra")
     @Transactional
-    public ResponseEntity cadastrarConta(@RequestBody ContaDTO NumConta) {
+    public ResponseEntity cadastrarConta(@Valid @RequestBody ContaDTO NumConta) {
             return ResponseEntity.ok(contaContService.cadastrarConta(NumConta));
 
     }
@@ -49,7 +50,7 @@ public class ContaController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity atualizaDadosConta(@RequestBody AtualizaContaDTO atualizaDados){
+    public ResponseEntity atualizaDadosConta(@Valid @RequestBody AtualizaContaDTO atualizaDados){
             return  ResponseEntity.ok(contaContService.atualizaDadosConta(atualizaDados));
     }
 

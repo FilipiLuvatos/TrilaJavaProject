@@ -8,6 +8,7 @@ import com.example.trilhaJava.service.MoneyApiConverService;
 import com.example.trilhaJava.service.RelatorioContaExcel;
 import com.example.trilhaJava.service.TransacaoContService;
 import com.example.trilhaJava.service.ValidaTransacaoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class TransacaoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastraTransacao(@RequestBody TransacaoDTO transacao, UriComponentsBuilder uriB) {
+    public ResponseEntity cadastraTransacao(@Valid @RequestBody TransacaoDTO transacao, UriComponentsBuilder uriB) {
         return ResponseEntity.ok(transacaoContService.cadastraTransacao(transacao,uriB));
     }
     @GetMapping("/all")
@@ -53,7 +54,7 @@ public class TransacaoController {
     }
 
     @PostMapping("/relatorio")
-    public ResponseEntity<byte[]> listaTransacaoContaRelatorio(@RequestBody RelaTransDTO transacao) {
+    public ResponseEntity<byte[]> listaTransacaoContaRelatorio(@Valid @RequestBody RelaTransDTO transacao) {
         System.out.println(transacao.getNumConta());
         var listaTransacao = transacaoRepository.getTransacaoConta(transacao.getNumConta());
 
@@ -80,8 +81,8 @@ public class TransacaoController {
 
     @GetMapping("/consultaTransacao")
     public ResponseEntity consultaTransacaoConta(@RequestParam("fkNumConta") Long numConta,
-                                            @RequestParam("dtInicio") LocalDate dt_inicio,
-                                            @RequestParam("Tipo") TypeTransacao tipo) {
+                                                 @RequestParam("dtInicio") LocalDate dt_inicio,
+                                                 @RequestParam("Tipo") TypeTransacao tipo) {
         return ResponseEntity.ok(transacaoContService.consultaTransacaoConta(numConta,dt_inicio,tipo));
     }
 
@@ -96,7 +97,7 @@ public class TransacaoController {
 
     @PutMapping("/atualiza")
     @Transactional
-    public ResponseEntity atualizaDadosTransacao(@RequestBody AtualizaTransacaoDTO atualizaDados){
+    public ResponseEntity atualizaDadosTransacao(@Valid @RequestBody AtualizaTransacaoDTO atualizaDados){
         transacaoContService.atualizaDadosTransacao(atualizaDados);
         return  ResponseEntity.ok(atualizaDados);
 
