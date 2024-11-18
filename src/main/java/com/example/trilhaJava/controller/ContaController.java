@@ -6,6 +6,7 @@ import com.example.trilhaJava.enumeration.TypeTransacao;
 import com.example.trilhaJava.model.pessoa.Conta;
 import com.example.trilhaJava.repository.ContaRepository;
 import com.example.trilhaJava.service.ContaContService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "bearer-key")
 @RequestMapping("/conta")
 public class ContaController {
 

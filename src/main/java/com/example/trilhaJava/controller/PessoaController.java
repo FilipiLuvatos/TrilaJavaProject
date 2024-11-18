@@ -5,6 +5,7 @@ import com.example.trilhaJava.domain.PessoaDTO;
 import com.example.trilhaJava.model.pessoa.Pessoa;
 import com.example.trilhaJava.repository.PessoaRepository;
 import com.example.trilhaJava.service.PessoaContService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@SecurityRequirement(name = "bearer-key")
 @RequestMapping("/pessoa")
 public class PessoaController {
 

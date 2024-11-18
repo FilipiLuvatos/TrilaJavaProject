@@ -7,6 +7,7 @@ import com.example.trilhaJava.repository.TransacaoRepository;
 import com.example.trilhaJava.service.MoneyApiConverService;
 import com.example.trilhaJava.service.RelatorioContaExcel;
 import com.example.trilhaJava.service.TransacaoContService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "bearer-key")
 @RequestMapping("/transacao")
 public class TransacaoController {
 

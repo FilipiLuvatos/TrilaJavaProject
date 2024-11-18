@@ -8,6 +8,7 @@ import com.example.trilhaJava.model.pessoa.Usuario;
 import com.example.trilhaJava.repository.UsuarioRepository;
 import com.example.trilhaJava.service.CriptoService;
 import com.example.trilhaJava.service.UsuarioContService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "bearer-key")
 @RequestMapping("/user")
 public class UsuarioController {
 
